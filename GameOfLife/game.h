@@ -33,6 +33,15 @@ public:
 
 	}
 
+	void FillRandomly()
+	{
+		size_t x = GetSizeX();
+		size_t y = GetSizeY();
+		for (size_t i = 0; i < y; i++)
+			for (size_t j = 0; j < x; j++)
+				board->Set(j, i, rand() % 2);
+	}
+
 	void SimulateNewRound()
 	{
 		size_t x = board->GetSizeX();
