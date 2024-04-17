@@ -4,6 +4,13 @@
 
 using namespace std;
 
+enum CellType
+{
+	DEAD = 0,
+	LIVE,
+	ERROR
+};
+
 class Board
 {
 public:
@@ -11,32 +18,43 @@ public:
 	{
 		sizeX = x;
 		sizeY = y;
-		board = new uint8_t * [sizeX];
+		board = new uint8_t [sizeX * sizeY];
 		if (!board)
 		{
 			cerr << "Board initialization error." << endl;
 			exit(1);
 		}
 
-		for (size_t i = 0; i < sizeX; i++)
+		for (size_t i = 0; i < sizeX * sizeY; i++)
+			board[i] = DEAD;
+	}
+
+	Board(size_t x, size_t y, uint8_t* patternArray)
+	{
+		if (!patternArray)
 		{
-			board[i] = new uint8_t[sizeY];
-			for (size_t j = 0; j < sizeY; j++)
-				board[i][j] = DEAD;
+			cerr << "Wrong argument." << endl;
+			exit(3);
 		}
+
+		sizeX = x;
+		sizeY = y;
+		board = new uint8_t [sizeX * sizeY];
+		if (!board)
+		{
+			cerr << "Board initialization error." << endl;
+			exit(1);
+		}
+
+		for (size_t i = 0; i < sizeX * sizeY; i++)
+			board[i] = patternArray[i];
 	}
 
 	~Board()
 	{
 		if (board)
 		{
-			for (size_t i = 0; i < sizeX; i++)
-				if (board[i])
-				{
-					delete board[i];
-					board[i] = nullptr;
-				}
-			delete board;
+			delete[] board;
 			board = nullptr;
 		}
 	}
@@ -53,14 +71,14 @@ public:
 		return false;
 	}
 
-	uint8_t Get(size_t x, size_t y)
+	uint8_t Get(size_t cellX, size_t cellY)
 	{
-		if (!IsInBounds(x, y))
+		if (!IsInBounds(cellX, cellY))
 		{
 			return 0;
 		}
 
-		return board[x][y];
+		return board[cellY * sizeX + cellX];
 	}
 
 	bool Exists()
@@ -70,9 +88,9 @@ public:
 		return true;
 	}
 
-	void Set(size_t x, size_t y, uint8_t value)
+	void Set(size_t cellX, size_t cellY, uint8_t value)
 	{
-		if (!IsInBounds(x, y))
+		if (!IsInBounds(cellX, cellY))
 		{
 			cerr << "Index out of range." << endl;
 			return;
@@ -84,7 +102,7 @@ public:
 			return;
 		}
 
-		board[x][y] = value;
+		board[cellY * sizeX + cellX] = value;
 	}
 
 	size_t GetSizeX()
@@ -124,14 +142,7 @@ public:
 	}
 
 private:
-	uint8_t** board = nullptr;
+	uint8_t* board = nullptr;
 	size_t sizeX = 0;
 	size_t sizeY = 0;
-};
-
-enum CellType
-{
-	DEAD = 0,
-	LIVE,
-	ERROR
 };
