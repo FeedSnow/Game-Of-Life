@@ -1,5 +1,6 @@
 #include "game.h"
 #include <iostream>
+//#include <SFML/Graphics.hpp>
 
 Game::Game(size_t sizeX, size_t sizeY)
 {
@@ -45,7 +46,7 @@ void Game::FillRandomly()
 			board->Set(j, i, rand() % 2);
 }
 
-void Game::SimulateNewRound()
+void Game::UpdateCells()
 {
 	size_t x = board->GetSizeX();
 	size_t y = board->GetSizeY();
@@ -80,4 +81,52 @@ void Game::ConsolePrint()
 		cout << endl;
 	}
 	cout << endl;
+}
+
+void Game::SetFrameDuration(sf::Time duration)
+{
+	frameTime = duration;
+}
+
+void Game::DisplayRound(sf::RenderWindow& window)
+{
+	size_t sizeX = GetSizeX();
+	size_t sizeY = GetSizeY();
+	sf::Color deadColor = (darkTheme ? sf::Color(20, 20, 20, 255) : sf::Color::White);
+	sf::Color liveColor = (darkTheme ? sf::Color::White : sf::Color::Black);
+
+	window.clear(deadColor);
+	for (size_t i = 0; i < sizeY; i++)
+		for (size_t j = 0; j < sizeX; j++)
+			if (Get(j, i) == LIVE)
+			{
+				sf::RectangleShape rect(sf::Vector2f(CELL_SIZE_X, CELL_SIZE_Y));
+				rect.setFillColor(liveColor);
+				rect.setPosition(sf::Vector2f(j * CELL_SIZE_X, i * CELL_SIZE_Y));
+				window.draw(rect);
+			}
+	window.display();
+}
+
+void Game::StartSimulation()
+{
+	sf::RenderWindow window(sf::VideoMode(CELL_SIZE_X * GetSizeX(), CELL_SIZE_Y * GetSizeY()), "Game of Life");
+
+	while (window.isOpen())
+	{
+		// check all the window's events that were triggered since the last iteration of the loop
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			// "close requested" event: we close the window
+			if (event.type == sf::Event::Closed)
+				window.close();
+
+		}
+
+		UpdateCells();
+		DisplayRound(window);
+
+		sf::sleep(frameTime);
+	}
 }
