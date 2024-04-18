@@ -14,11 +14,8 @@ public:
 	void ReadBoardPattern(size_t sizeX, size_t sizeY, uint8_t* pattern);
 	void PlacePattern(Board* pattern, size_t posX, size_t posY);
 	void FillRandomly();
-	void UpdateCells();
-	void ConsolePrint();
 
 	void StartSimulation();
-	void DisplayRound(sf::RenderWindow& window);
 
 	void SetDarkTheme(bool on = true) { darkTheme = on; }
 	bool IsDarkThemed() { return darkTheme; }
@@ -36,4 +33,7 @@ private:
 	Board* board;
 	sf::Time frameTime = sf::seconds(0.1);
 	bool darkTheme = true;
+
+	void DisplayRound(sf::RenderWindow& window);
+	void UpdateCells();
 };

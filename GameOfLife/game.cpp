@@ -69,20 +69,6 @@ void Game::UpdateCells()
 	newBoard = nullptr;
 }
 
-void Game::ConsolePrint()
-{
-	size_t x = GetSizeX();
-	size_t y = GetSizeY();
-
-	for (size_t i = 0; i < y; i++)
-	{
-		for (size_t j = 0; j < x; j++)
-			cout << (int)board->Get(j, i);
-		cout << endl;
-	}
-	cout << endl;
-}
-
 void Game::SetFrameDuration(sf::Time duration)
 {
 	frameTime = duration;
