@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
+#include "patterns.h"
 
 #define CELL_SIZE_X 8
 #define CELL_SIZE_Y 8
@@ -38,7 +39,15 @@ int main()
 {
 	srand(time(NULL));
 	Game game(200, 120);
-	game.FillRandomly();
+	game.PlacePattern(Patterns::Oscillators::Star(), 0, 0);
+	game.PlacePattern(Patterns::Oscillators::Cross(), 15, 0);
+	game.PlacePattern(Patterns::Spaceships::Glider(), 0, 20);
+	game.PlacePattern(Patterns::Spaceships::LWSS(), 0, 40);
+	game.PlacePattern(Patterns::Spaceships::MWSS(), 0, 60);
+	game.PlacePattern(Patterns::Spaceships::HWSS(), 0, 80);
+
+
+	//game.FillRandomly();
 	//game.ReadBoardPattern(8, 4, pat);
 
 	sf::RenderWindow window(sf::VideoMode(CELL_SIZE_X * game.GetSizeX(), CELL_SIZE_Y * game.GetSizeY()), "Game of Life");

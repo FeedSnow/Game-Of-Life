@@ -59,6 +59,22 @@ public:
 		}
 	}
 
+	void PlacePattern(Board* pattern, size_t posX, size_t posY)
+	{
+		if (!IsInBounds(posX + pattern->GetSizeX() - 1, posY + pattern->GetSizeY() - 1))
+		{
+			cerr << "Pattern too large for chosen place." << endl;
+			return;
+		}
+
+		size_t patSizeX = pattern->GetSizeX();
+		size_t patSizeY = pattern->GetSizeY();
+
+		for (size_t i = 0; i < patSizeY; i++)
+			for (size_t j = 0; j < patSizeX; j++)
+				board[(i + posY) * sizeX + (j + posX)] = pattern->Get(j, i);
+	}
+
 	bool IsInBounds(size_t x, size_t y)
 	{
 		return (x < sizeX && y < sizeY);

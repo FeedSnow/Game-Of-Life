@@ -33,6 +33,12 @@ public:
 
 	}
 
+	void PlacePattern(Board* pattern, size_t posX, size_t posY)
+	{
+		board->PlacePattern(pattern, posX, posY);
+		delete pattern;
+	}
+
 	void FillRandomly()
 	{
 		size_t x = GetSizeX();
