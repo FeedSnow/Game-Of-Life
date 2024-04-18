@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
-#include "patterns.h"
+#include "Patterns/oscillators.h"
+#include "Patterns/spaceships.h"
+#include "Patterns/still_lifes.h"
 
 using namespace std;
 

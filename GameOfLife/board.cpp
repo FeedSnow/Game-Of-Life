@@ -47,6 +47,10 @@ Board::~Board()
 }
 
 void Board::PlacePattern(Board* pattern, size_t posX, size_t posY)
+#ifdef IGNORE_DEAD
+
+#elif defined(ADD_BORDER)
+#else
 {
 	if (!IsInBounds(posX + pattern->GetSizeX() - 1, posY + pattern->GetSizeY() - 1))
 	{
@@ -61,6 +65,7 @@ void Board::PlacePattern(Board* pattern, size_t posX, size_t posY)
 		for (size_t j = 0; j < patSizeX; j++)
 			board[(i + posY) * sizeX + (j + posX)] = pattern->Get(j, i);
 }
+#endif
 
 uint8_t Board::GetNeighboursValSum(size_t cellX, size_t cellY)
 {
