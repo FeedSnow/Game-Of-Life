@@ -3,13 +3,6 @@
 
 using namespace std;
 
-enum CellType
-{
-	DEAD = 0,
-	LIVE,
-	ERROR
-};
-
 class Board
 {
 public:
@@ -24,15 +17,8 @@ public:
 	uint8_t Get(size_t cellX, size_t cellY);
 	void Set(size_t cellX, size_t cellY, uint8_t value);
 
-	size_t GetSizeX()
-	{
-		return sizeX;
-	}
-
-	size_t GetSizeY()
-	{
-		return sizeY;
-	}
+	size_t GetSizeX() { return sizeX; }
+	size_t GetSizeY() { return sizeY; }
 
 private:
 	uint8_t* board = nullptr;

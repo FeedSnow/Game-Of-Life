@@ -1,6 +1,5 @@
 #include "game.h"
 #include <iostream>
-//#include <SFML/Graphics.hpp>
 
 Game::Game(size_t sizeX, size_t sizeY)
 {
@@ -12,7 +11,7 @@ Game::~Game()
 	delete board;
 }
 
-void Game::ReadBoardPattern(size_t sizeX, size_t sizeY, uint8_t* pattern)
+void Game::InitBoardFromPattern(size_t sizeX, size_t sizeY, uint8_t* pattern)
 {
 	if (!pattern)
 	{
@@ -54,10 +53,10 @@ void Game::UpdateCells()
 	for (size_t i = 0; i < y; i++)
 		for (size_t j = 0; j < x; j++)
 		{
-			uint8_t newCellVal = DEAD;
+			uint8_t newCellVal = 0;
 			uint8_t neighboursValSum = board->GetNeighboursValSum(j, i);
 			if (neighboursValSum == 3)
-				newCellVal = LIVE;
+				newCellVal = 1;
 			else if (neighboursValSum == 2)
 				newCellVal = board->Get(j, i);
 
@@ -84,7 +83,7 @@ void Game::DisplayRound(sf::RenderWindow& window)
 	window.clear(deadColor);
 	for (size_t i = 0; i < sizeY; i++)
 		for (size_t j = 0; j < sizeX; j++)
-			if (Get(j, i) == LIVE)
+			if (Get(j, i) == 1)
 			{
 				sf::RectangleShape rect(sf::Vector2f(CELL_SIZE_X, CELL_SIZE_Y));
 				rect.setFillColor(liveColor);
@@ -100,6 +99,8 @@ void Game::StartSimulation()
 
 	while (window.isOpen())
 	{
+		DisplayRound(window);
+
 		// check all the window's events that were triggered since the last iteration of the loop
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -107,10 +108,7 @@ void Game::StartSimulation()
 			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
 				window.close();
-
 		}
-
-		DisplayRound(window);
 
 		sf::sleep(frameTime);
 		UpdateCells();

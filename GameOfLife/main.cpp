@@ -15,6 +15,7 @@ int main()
 {
 	srand(time(NULL));
 	Game game(200, 120);
+
 	game.FillRandomly();
 
 	game.StartSimulation();

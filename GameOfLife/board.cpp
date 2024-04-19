@@ -13,7 +13,7 @@ Board::Board(size_t x, size_t y)
 	}
 
 	for (size_t i = 0; i < sizeX * sizeY; i++)
-		board[i] = DEAD;
+		board[i] = 0;
 }
 
 Board::Board(size_t x, size_t y, uint8_t* patternArray)
@@ -47,10 +47,6 @@ Board::~Board()
 }
 
 void Board::PlacePattern(Board* pattern, size_t posX, size_t posY)
-#ifdef IGNORE_DEAD
-
-#elif defined(ADD_BORDER)
-#else
 {
 	if (!IsInBounds(posX + pattern->GetSizeX() - 1, posY + pattern->GetSizeY() - 1))
 	{
@@ -63,9 +59,14 @@ void Board::PlacePattern(Board* pattern, size_t posX, size_t posY)
 
 	for (size_t i = 0; i < patSizeY; i++)
 		for (size_t j = 0; j < patSizeX; j++)
-			board[(i + posY) * sizeX + (j + posX)] = pattern->Get(j, i);
-}
+		{
+			uint8_t cell = pattern->Get(j, i);
+#ifdef IGNORE_DEAD
+			if(cell == LIVE)
 #endif
+				board[(i + posY) * sizeX + (j + posX)] = cell;
+		}
+}
 
 uint8_t Board::GetNeighboursValSum(size_t cellX, size_t cellY)
 {
@@ -127,7 +128,7 @@ bool Board::IsInBounds(size_t x, size_t y)
 
 bool Board::IsAcceptableCellValue(uint8_t value)
 {
-	if (value < ERROR)
+	if (value < 2)
 		return true;
 	return false;
 }

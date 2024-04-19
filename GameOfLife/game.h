@@ -11,7 +11,7 @@ public:
 	Game(size_t sizeX, size_t sizeY);
 	~Game();
 
-	void ReadBoardPattern(size_t sizeX, size_t sizeY, uint8_t* pattern);
+	void InitBoardFromPattern(size_t sizeX, size_t sizeY, uint8_t* pattern);
 	void PlacePattern(Board* pattern, size_t posX, size_t posY);
 	void FillRandomly();
 
@@ -31,7 +31,7 @@ public:
 
 private:
 	Board* board;
-	sf::Time frameTime = sf::seconds(0.1);
+	sf::Time frameTime = sf::seconds(1./15.);
 	bool darkTheme = true;
 
 	void DisplayRound(sf::RenderWindow& window);
