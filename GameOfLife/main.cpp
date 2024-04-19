@@ -20,7 +20,5 @@ int main()
 
 	game.StartSimulation();
 	
-
 	return 0;
 }
-/**/

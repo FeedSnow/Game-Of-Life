@@ -9,7 +9,7 @@ Board::Board(size_t x, size_t y)
 	if (!board)
 	{
 		cerr << "Board initialization error." << endl;
-		exit(1);
+		exit(2);
 	}
 
 	for (size_t i = 0; i < sizeX * sizeY; i++)
@@ -20,8 +20,8 @@ Board::Board(size_t x, size_t y, uint8_t* patternArray)
 {
 	if (!patternArray)
 	{
-		cerr << "Wrong argument." << endl;
-		exit(3);
+		cerr << "Array does not exist." << endl;
+		exit(1);
 	}
 
 	sizeX = x;
@@ -30,7 +30,7 @@ Board::Board(size_t x, size_t y, uint8_t* patternArray)
 	if (!board)
 	{
 		cerr << "Board initialization error." << endl;
-		exit(1);
+		exit(2);
 	}
 
 	for (size_t i = 0; i < sizeX * sizeY; i++)
