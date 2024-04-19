@@ -146,7 +146,9 @@
   <ItemGroup>
     <ClInclude Include="board.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="patterns.h" />
+    <ClInclude Include="Patterns\oscillators.h" />
+    <ClInclude Include="Patterns\spaceships.h" />
+    <ClInclude Include="Patterns\still_lifes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

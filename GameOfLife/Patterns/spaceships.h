@@ -19,7 +19,7 @@ namespace Patterns
 			return new Board(5, 5, pattern);
 		}
 
-		/// <returns>7x7 spaceship pattern</returns>
+		/// <returns>7x6 spaceship pattern</returns>
 		Board* LWSS()
 		{
 			uint8_t pattern[]{
@@ -31,10 +31,10 @@ namespace Patterns
 				0,0,0,0,0,0,0
 			};
 
-			return new Board(7, 7, pattern);
+			return new Board(7, 6, pattern);
 		}
 
-		/// <returns>8x9 spaceship pattern</returns>
+		/// <returns>8x7 spaceship pattern</returns>
 		Board* MWSS()
 		{
 			uint8_t pattern[]{
@@ -47,10 +47,10 @@ namespace Patterns
 				0,0,0,0,0,0,0,0
 			};
 
-			return new Board(8, 9, pattern);
+			return new Board(8, 7, pattern);
 		}
 
-		/// <returns>9x9 spaceship pattern</returns>
+		/// <returns>9x7 spaceship pattern</returns>
 		Board* HWSS()
 		{
 			uint8_t pattern[]{
@@ -63,7 +63,7 @@ namespace Patterns
 				0,0,0,0,0,0,0,0,0
 			};
 
-			return new Board(9, 9, pattern);
+			return new Board(9, 7, pattern);
 		}
 	}
 }

@@ -110,9 +110,9 @@ void Game::StartSimulation()
 
 		}
 
-		UpdateCells();
 		DisplayRound(window);
 
 		sf::sleep(frameTime);
+		UpdateCells();
 	}
 }
